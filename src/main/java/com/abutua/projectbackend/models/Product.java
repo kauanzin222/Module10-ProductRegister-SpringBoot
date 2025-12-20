@@ -1,21 +1,37 @@
 package com.abutua.projectbackend.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="TBL_PRODUCT") 
 public class Product {
 
     // Atributos:
+    @Id
     private int id;
     private String name;
     private double price;
     private String description;
     private boolean promotion;
     private boolean newProduct;
+    @ManyToOne
+    private Category category;
 
-    private int idCategory;
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     private static int contProducts = 0;
 
     // Métodos Construtores
-    public Product(String name, String desc, int idCat, boolean prom, boolean newProd, double price) {
+    public Product(String name, String desc, Category category, boolean prom, boolean newProd, double price) {
         System.out.println("Construindo um Produto!");
 
         // Aumentando a qtde de Produtos existentes
@@ -24,7 +40,7 @@ public class Product {
         this.id = contProducts;
         this.name = name;
         this.description = desc;
-        this.idCategory = idCat;
+        this.category = category;
         this.promotion = prom;
         this.newProduct = newProd;
         this.price = price;
@@ -77,13 +93,5 @@ public class Product {
 
     public void setNewProduct(boolean newProduct) {
         this.newProduct = newProduct;
-    }
-
-    public int getIdCategory() {
-        return idCategory;
-    }
-
-    public void setIdCategory(int idCategory) {
-        this.idCategory = idCategory;
     }
 }

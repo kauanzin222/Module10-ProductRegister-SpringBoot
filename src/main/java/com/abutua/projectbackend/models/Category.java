@@ -1,9 +1,17 @@
 package com.abutua.projectbackend.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="TBL_CATEGORY")
 public class Category {
 
     // Atributos
+    @Id
     private int id;
+
     private String name;
 
     private static int contCategory = 0;
