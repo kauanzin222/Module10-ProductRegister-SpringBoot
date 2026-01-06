@@ -11,19 +11,18 @@ public class Category {
     // Atributos
     @Id
     private int id;
-
+    
     private String name;
 
-    private static int contCategory = 0;
+    // Construtor sem-args necessário ao JPA
+    public Category() {
+    }
 
     // Método Construtor
-    public Category(String name) {
+    public Category(int id, String name) {
         System.out.println("Construindo uma categoria!");
 
-        // Aumentando a qtde de Categoria
-        contCategory++;
-
-        this.id = contCategory;
+        this.id = id;
         this.name = name;
     }
 

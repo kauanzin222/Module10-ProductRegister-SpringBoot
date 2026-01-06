@@ -1,20 +1,16 @@
 package com.abutua.projectbackend.resources;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.abutua.projectbackend.models.Category;
 import com.abutua.projectbackend.repositories.CategoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @CrossOrigin
@@ -43,7 +39,7 @@ public class CategoryController {
     //     return ResponseEntity.ok(cat);
     // }
 
-    @GetMapping("Categories")
+    @GetMapping("categories")
     public List<Category> getCategories() {
         return categoryRepository.findAll();
     }
