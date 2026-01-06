@@ -1,6 +1,8 @@
 package com.abutua.projectbackend.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -11,7 +13,9 @@ public class Product {
 
     // Atributos:
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     private String name;
     private double price;
     private String description;
@@ -27,6 +31,8 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public Product(){}
 
     private static int contProducts = 0;
 

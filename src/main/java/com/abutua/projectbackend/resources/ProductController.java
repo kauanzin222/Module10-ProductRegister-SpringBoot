@@ -1,27 +1,20 @@
 package com.abutua.projectbackend.resources;
 
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.abutua.projectbackend.models.Product;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.abutua.projectbackend.repositories.ProductRepository;
 
 @RestController
 @CrossOrigin
 public class ProductController {
 
-        private List<Product> products = new ArrayList<>();
+        /* private List<Product> products = new ArrayList<>();
         
         @PostMapping("Products")
         public ResponseEntity<Product> save(@RequestBody Product product) {
@@ -58,10 +51,13 @@ public class ProductController {
                 // Caso contrário, lance a exceção. O resto do código não será lido.
 
                 return ResponseEntity.ok(prod);
-        }
+        } */
 
+        @Autowired
+        public ProductRepository productRepository;
+        
         @GetMapping("Products")
         public List<Product> getProducts() {
-                return products;
+                return productRepository.findAll();
         }
 }
