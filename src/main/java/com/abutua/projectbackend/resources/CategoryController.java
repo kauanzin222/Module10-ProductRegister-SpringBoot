@@ -26,7 +26,7 @@ public class CategoryController {
     public ResponseEntity<Category> getCategory(@PathVariable int id) {
 
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found... :c"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category NOT FOUND"));
 
         return ResponseEntity.ok(category);
     }

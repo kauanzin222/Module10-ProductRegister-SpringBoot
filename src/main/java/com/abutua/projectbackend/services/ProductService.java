@@ -17,7 +17,7 @@ public class ProductService {
     public Product getById(int id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product NOT FOUND"));
-
+        
         return product;
     }
 }

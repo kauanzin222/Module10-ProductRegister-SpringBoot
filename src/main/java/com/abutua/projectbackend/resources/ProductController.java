@@ -5,7 +5,6 @@ import java.util.List;
 import com.abutua.projectbackend.models.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,12 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.abutua.projectbackend.models.Product;
 import com.abutua.projectbackend.repositories.CategoryRepository;
 import com.abutua.projectbackend.repositories.ProductRepository;
+import com.abutua.projectbackend.services.CategoryService;
 import com.abutua.projectbackend.services.ProductService;
 
 @RestController
@@ -36,9 +35,11 @@ public class ProductController {
         @Autowired
         public ProductService productService;
 
+        @Autowired
+        public CategoryService categoryService;
+
         @PostMapping("Products")
         public ResponseEntity<Product> save(@RequestBody Product product) {
-
                 product = productRepository.save(product);
 
                 URI location = ServletUriComponentsBuilder
@@ -63,26 +64,17 @@ public class ProductController {
 
         @DeleteMapping("Products/{id}")
         public ResponseEntity<Void> removeProduct(@PathVariable int id) {
-
-                Product product = productRepository.findById(id)
-                                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                                "Product NOT FOUND"));
-
+                Product product = productService.getById(id);
                 productRepository.delete(product);
-
                 return ResponseEntity.noContent().build();
         }
 
         @PutMapping("Products/{id}")
         public ResponseEntity<Void> updateProduct(@PathVariable int id, @RequestBody Product productUpdate) {
 
-                Product product = productRepository.findById(id)
-                                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                                "Product NOT FOUND"));
+                Product product = productService.getById(id);
 
-                Category category = categoryRepository.findById(productUpdate.getCategory().getId())
-                                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                                "Category NOT FOUND"));
+                Category category = categoryService.getByProduct(productUpdate);
 
                 product.setDescription(productUpdate.getDescription());
                 product.setName(productUpdate.getName());
