@@ -2,7 +2,6 @@ package com.abutua.projectbackend.resources;
 
 import java.net.URI;
 import java.util.List;
-import com.abutua.projectbackend.models.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,14 +39,14 @@ public class ProductController {
 
         @PostMapping("Products")
         public ResponseEntity<Product> save(@RequestBody Product product) {
-                product = productRepository.save(product);
+                product = productService.save(product);
 
                 URI location = ServletUriComponentsBuilder
                                 .fromCurrentRequest()
                                 .path("/{id}")
                                 .buildAndExpand(product.getId())
                                 .toUri();
-
+                
                 return ResponseEntity.created(location).body(product);
         }
 
@@ -59,32 +58,18 @@ public class ProductController {
 
         @GetMapping("Products")
         public List<Product> getProducts() {
-                return productRepository.findAll();
+                return productService.getAll();
         }
 
         @DeleteMapping("Products/{id}")
         public ResponseEntity<Void> removeProduct(@PathVariable int id) {
-                Product product = productService.getById(id);
-                productRepository.delete(product);
+                productService.deleteById(id);  
                 return ResponseEntity.noContent().build();
         }
 
         @PutMapping("Products/{id}")
         public ResponseEntity<Void> updateProduct(@PathVariable int id, @RequestBody Product productUpdate) {
-
-                Product product = productService.getById(id);
-
-                Category category = categoryService.getByProduct(productUpdate);
-
-                product.setDescription(productUpdate.getDescription());
-                product.setName(productUpdate.getName());
-                product.setPrice(productUpdate.getPrice());
-                product.setNewProduct(productUpdate.isNewProduct());
-                product.setPromotion(productUpdate.isPromotion());
-                product.setCategory(category);
-
-                productRepository.save(product);
-
+                productService.update(id, productUpdate);
                 return ResponseEntity.ok().build();
         }
 
