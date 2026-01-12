@@ -21,6 +21,7 @@ public class Product {
     private String description;
     private boolean promotion;
     private boolean newProduct;
+    
     @ManyToOne
     private Category category;
 
