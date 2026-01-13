@@ -18,5 +18,7 @@ To access the in-memory database console:
 2. Open your browser and navigate to: `http://localhost:8080/h2-console`
 3. Ensure the **JDBC URL** matches the one in your configuration (e.g., `jdbc:h2:mem:testdb`) and click **Connect**.
 
+## 🖥️ Front-End Repository
+https://github.com/kauanzin222/Module10-ProductRegister-Angular.git
 ---
 *Project developed for study and improvement purposes. 📚*
